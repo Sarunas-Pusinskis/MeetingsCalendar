@@ -138,7 +138,7 @@ public class MeetingService {
                 .collect(Collectors.toList());
     }
 
-    public List<Meeting> filterMeetingsByType(Type type){
+    public List<Meeting> filterMeetingsByType(Type type) {
         return meetings.stream()
                 .filter(meeting -> meeting.getType() == type)
                 .collect(Collectors.toList());
@@ -156,12 +156,4 @@ public class MeetingService {
                 .filter(meeting -> meeting.getAttendees().size() > minAttendees)
                 .collect(Collectors.toList());
     }
-
-
-
-
-
-
-
-
 }

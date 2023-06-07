@@ -10,15 +10,18 @@ import java.util.List;
 @RestController
 @RequestMapping("/meetings")
 public class MeetingController {
-private final MeetingService meetingService;
+    private final MeetingService meetingService;
+
     public MeetingController(MeetingService meetingService) {
         this.meetingService = meetingService;
     }
+
     @GetMapping
     public ResponseEntity<List<Meeting>> getAllMeetings() {
         List<Meeting> meetings = meetingService.getAllMeetings();
         return new ResponseEntity<>(meetings, HttpStatus.OK);
     }
+
     // localhost:8080/meetings/create-meeting
     /* JSON:
      {
@@ -31,7 +34,7 @@ private final MeetingService meetingService;
       "endDate": "2023-06-07"
     } */
     @PostMapping("/create-meeting")
-    public ResponseEntity<String> createMeeting (@RequestBody Meeting meeting) {
+    public ResponseEntity<String> createMeeting(@RequestBody Meeting meeting) {
         meetingService.createMeeting(meeting);
         return new ResponseEntity<>("Meeting created successfully.", HttpStatus.CREATED);
     }
@@ -115,16 +118,4 @@ private final MeetingService meetingService;
         List<Meeting> meetings = meetingService.filterMeetingsByAttendees(minAttendees);
         return ResponseEntity.ok(meetings);
     }
-
-
-
-
-
-
-
-
-
-
-
-
 }
