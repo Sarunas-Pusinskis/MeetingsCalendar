@@ -98,6 +98,14 @@ private final MeetingService meetingService;
         return new ResponseEntity<>(meetings, HttpStatus.OK);
     }
 
+    // localhost:8080/meetings/dates
+    // localhost:8080/meetings/dates?startDate=2023-10-01&endDate=2023-12-01 - example
+    @GetMapping("/dates")
+    public ResponseEntity<List<Meeting>> filterMeetingsByDates(@RequestParam("startDate") LocalDate startDate,
+                                                               @RequestParam("endDate") LocalDate endDate) {
+        List<Meeting> meetings = meetingService.filterMeetingsByDates(startDate, endDate);
+        return new ResponseEntity<>(meetings, HttpStatus.OK);
+    }
 
 
 

@@ -144,4 +144,18 @@ public class MeetingService {
                 .collect(Collectors.toList());
     }
 
+    public List<Meeting> filterMeetingsByDates(LocalDate startDate, LocalDate endDate) {
+        return meetings.stream()
+                .filter(meeting -> meeting.getStartDate().compareTo(startDate) >= 0 &&
+                        meeting.getEndDate().compareTo(endDate) <= 0)
+                .collect(Collectors.toList());
+    }
+
+
+
+
+
+
+
+
 }
