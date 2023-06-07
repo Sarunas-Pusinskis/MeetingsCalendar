@@ -77,6 +77,13 @@ private final MeetingService meetingService;
         return new ResponseEntity<>(meetings, HttpStatus.OK);
     }
 
+    // localhost:8080/meetings/responsible-person/{responsiblePerson}
+    @GetMapping("/responsible-person/{responsiblePerson}")
+    public ResponseEntity<List<Meeting>> filterMeetingsByResponsiblePerson(@PathVariable String responsiblePerson) {
+        List<Meeting> meetings = meetingService.filterMeetingsByResponsiblePerson(responsiblePerson);
+        return new ResponseEntity<>(meetings, HttpStatus.OK);
+    }
+
 
 
 

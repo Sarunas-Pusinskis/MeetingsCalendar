@@ -126,7 +126,11 @@ public class MeetingService {
                 .collect(Collectors.toList());
     }
 
-
+    public List<Meeting> filterMeetingsByResponsiblePerson(String responsiblePerson) {
+        return meetings.stream()
+                .filter(meeting -> meeting.getResponsiblePerson().equalsIgnoreCase(responsiblePerson))
+                .collect(Collectors.toList());
+    }
 
 
 
