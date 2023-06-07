@@ -132,7 +132,16 @@ public class MeetingService {
                 .collect(Collectors.toList());
     }
 
+    public List<Meeting> filterMeetingsByCategory(Category category) {
+        return meetings.stream()
+                .filter(meeting -> meeting.getCategory() == category)
+                .collect(Collectors.toList());
+    }
 
-
+    public List<Meeting> filterMeetingsByType(Type type){
+        return meetings.stream()
+                .filter(meeting -> meeting.getType() == type)
+                .collect(Collectors.toList());
+    }
 
 }

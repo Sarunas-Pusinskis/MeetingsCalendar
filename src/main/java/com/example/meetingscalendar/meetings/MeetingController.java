@@ -84,6 +84,20 @@ private final MeetingService meetingService;
         return new ResponseEntity<>(meetings, HttpStatus.OK);
     }
 
+    // localhost:8080/meetings/category/{category}
+    @GetMapping("/category/{category}")
+    public ResponseEntity<List<Meeting>> filterMeetingsByCategory(@PathVariable Category category) {
+        List<Meeting> meetings = meetingService.filterMeetingsByCategory(category);
+        return new ResponseEntity<>(meetings, HttpStatus.OK);
+    }
+
+    // localhost:8080/meetings/type/{type}
+    @GetMapping("/type/{type}")
+    public ResponseEntity<List<Meeting>> filterMeetingsByType(@PathVariable Type type) {
+        List<Meeting> meetings = meetingService.filterMeetingsByType(type);
+        return new ResponseEntity<>(meetings, HttpStatus.OK);
+    }
+
 
 
 
