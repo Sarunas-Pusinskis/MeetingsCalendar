@@ -1,6 +1,7 @@
 package com.example.meetingscalendar.meetings;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 public class Meeting {
@@ -13,6 +14,7 @@ public class Meeting {
     private LocalDate endDate;
     private List<String> attendees;
 
+
     public Meeting(String name, String responsiblePerson, String description, Category category, Type type, LocalDate startDate, LocalDate endDate, List<String> attendees) {
         this.name = name;
         this.responsiblePerson = responsiblePerson;
@@ -22,6 +24,7 @@ public class Meeting {
         this.startDate = startDate;
         this.endDate = endDate;
         this.attendees = attendees;
+        this.attendees = new ArrayList<>();
     }
 
     public String getName() {

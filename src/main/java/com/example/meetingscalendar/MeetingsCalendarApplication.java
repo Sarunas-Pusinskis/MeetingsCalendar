@@ -8,8 +8,8 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class MeetingsCalendarApplication {
 
-	public static void main(String[] args) {
-		SpringApplication.run(MeetingsCalendarApplication.class, args);
-	}
+    public static void main(String[] args) {
+        SpringApplication.run(MeetingsCalendarApplication.class, args);
+    }
 
 }
