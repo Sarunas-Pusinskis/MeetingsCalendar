@@ -35,6 +35,13 @@ private final MeetingService meetingService;
         return new ResponseEntity<>("Meeting created successfully.", HttpStatus.CREATED);
     }
 
+    // localhost:8080/meetings/delete-meeting/{name}/{responsiblePerson}
+    @DeleteMapping("/delete-meeting/{name}/{responsiblePerson}")
+    public ResponseEntity<String> deleteMeeting(@PathVariable String name, @PathVariable String responsiblePerson) {
+        meetingService.deleteMeeting(name, responsiblePerson);
+        return new ResponseEntity<>("Meeting deleted successfully.", HttpStatus.OK);
+    }
+
 
 
 

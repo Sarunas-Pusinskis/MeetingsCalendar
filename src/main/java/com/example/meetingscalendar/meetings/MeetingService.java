@@ -48,6 +48,11 @@ public class MeetingService {
         return meetings;
     }
 
+    public void deleteMeeting(String name, String responsiblePerson) {
+        meetings.removeIf(meeting -> meeting.getName().equalsIgnoreCase(name) &&
+                meeting.getResponsiblePerson().equalsIgnoreCase(responsiblePerson));
+        saveMeetingsToFile();
+    }
 
 
 
