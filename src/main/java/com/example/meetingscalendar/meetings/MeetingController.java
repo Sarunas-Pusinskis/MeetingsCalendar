@@ -4,6 +4,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @RestController
@@ -40,6 +41,20 @@ private final MeetingService meetingService;
     public ResponseEntity<String> deleteMeeting(@PathVariable String name, @PathVariable String responsiblePerson) {
         meetingService.deleteMeeting(name, responsiblePerson);
         return new ResponseEntity<>("Meeting deleted successfully.", HttpStatus.OK);
+    }
+
+    //localhost:8080/meetings/{meetingName}/add-person
+    /* JSON example:
+    {
+        "person": "Tadas",
+        "time": "2023-06-10"
+    }*/
+    @PostMapping("/{meetingName}/add-person")
+    public ResponseEntity<String> addPersonToMeeting(@PathVariable String meetingName, @RequestBody PersonRequest personRequest) {
+        LocalDate time = personRequest.getTime();
+        String person = personRequest.getPerson();
+        meetingService.addPersonToMeeting(meetingName, person, time);
+        return new ResponseEntity<>("Person added to the meeting successfully.", HttpStatus.OK);
     }
 
 

@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 
 import java.io.File;
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -54,6 +55,43 @@ public class MeetingService {
         saveMeetingsToFile();
     }
 
+    public Meeting findMeetingByName(String meetingName) {
+        return meetings.stream()
+                .filter(meeting -> meeting.getName().equals(meetingName))
+                .findFirst()
+                .orElse(null);
+    }
+    public void addPersonToMeeting(String meetingName, String person, LocalDate time) {
+        Meeting meeting = findMeetingByName(meetingName);
+        if (meeting != null) {
+            // Check if the person is already in a meeting that intersects with the new meeting
+            boolean isIntersecting = meetings.stream()
+                    .anyMatch(m -> m != meeting &&
+                            m.getAttendees().contains(person) &&
+                            m.getStartDate().isBefore(time) &&
+                            m.getEndDate().isAfter(time));
+
+            if (isIntersecting) {
+                throw new IllegalArgumentException("Warning: The person is already in a meeting that intersects with the new meeting.");
+            }
+
+            // Check if the person is already added to the meeting
+            if (meeting.getAttendees().contains(person)) {
+                throw new IllegalArgumentException("Person is already added to the meeting.");
+            }
+
+            // Add the person to the meeting
+            meeting.getAttendees().add(person);
+        } else {
+            throw new MeetingNotFoundException("Meeting not found: " + meetingName);
+        }
+    }
+
+    public static class MeetingNotFoundException extends RuntimeException {
+        public MeetingNotFoundException(String message) {
+            super(message);
+        }
+    }
 
 
 
