@@ -70,6 +70,14 @@ private final MeetingService meetingService;
     }
 
 
+    // localhost:8080/meetings/description/{description}
+    @GetMapping("/description/{description}")
+    public ResponseEntity<List<Meeting>> filterMeetingsByDescription(@PathVariable String description) {
+        List<Meeting> meetings = meetingService.filterMeetingsByDescription(description);
+        return new ResponseEntity<>(meetings, HttpStatus.OK);
+    }
+
+
 
 
 

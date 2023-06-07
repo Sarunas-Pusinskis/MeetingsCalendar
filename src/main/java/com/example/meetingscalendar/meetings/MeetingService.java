@@ -9,12 +9,14 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class MeetingService {
     private List<Meeting> meetings;
     private static final String MEETINGS_FILE = "meetings.json";
     private static final ObjectMapper objectMapper = new ObjectMapper();
+
     public MeetingService() {
         loadMeetingsFromFile();
     }
@@ -38,6 +40,7 @@ public class MeetingService {
         meetings.add(meeting);
         saveMeetingsToFile();
     }
+
     private void saveMeetingsToFile() {
         try {
             objectMapper.writeValue(new File(MEETINGS_FILE), meetings);
@@ -45,6 +48,7 @@ public class MeetingService {
             e.printStackTrace();
         }
     }
+
     public List<Meeting> getAllMeetings() {
         return meetings;
     }
@@ -61,6 +65,7 @@ public class MeetingService {
                 .findFirst()
                 .orElse(null);
     }
+
     public void addPersonToMeeting(String meetingName, String person, LocalDate time) {
         Meeting meeting = findMeetingByName(meetingName);
         if (meeting != null) {
@@ -99,36 +104,27 @@ public class MeetingService {
                 .findFirst()
                 .orElse(null);
     }
-public void removePersonFromMeeting(String meetingName, String person) {
-    Meeting meeting = getMeetingByName(meetingName);
-    if (meeting != null) {
-        if (meeting.getResponsiblePerson().equalsIgnoreCase(person)) {
-            System.out.println("The responsible person cannot be removed from the meeting.");
-            return;
+
+    public void removePersonFromMeeting(String meetingName, String person) {
+        Meeting meeting = getMeetingByName(meetingName);
+        if (meeting != null) {
+            if (meeting.getResponsiblePerson().equalsIgnoreCase(person)) {
+                System.out.println("The responsible person cannot be removed from the meeting.");
+                return;
+            }
+
+            meeting.getAttendees().remove(person);
+            saveMeetingsToFile();
+        } else {
+            System.out.println("Meeting not found.");
         }
-
-        meeting.getAttendees().remove(person);
-        saveMeetingsToFile();
-    } else {
-        System.out.println("Meeting not found.");
     }
-}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    public List<Meeting> filterMeetingsByDescription(String description) {
+        return meetings.stream()
+                .filter(meeting -> meeting.getDescription().toLowerCase().contains(description.toLowerCase()))
+                .collect(Collectors.toList());
+    }
 
 
 
