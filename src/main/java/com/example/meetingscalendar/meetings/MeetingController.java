@@ -107,6 +107,14 @@ private final MeetingService meetingService;
         return new ResponseEntity<>(meetings, HttpStatus.OK);
     }
 
+    // Endpoint to filter meetings by minimum attendees
+    // localhost:8080/meetings//filter
+    // localhost:8080/meetings/filter?minAttendees=10 - example
+    @GetMapping("/filter")
+    public ResponseEntity<List<Meeting>> filterMeetingsByAttendees(@RequestParam("minAttendees") int minAttendees) {
+        List<Meeting> meetings = meetingService.filterMeetingsByAttendees(minAttendees);
+        return ResponseEntity.ok(meetings);
+    }
 
 
 

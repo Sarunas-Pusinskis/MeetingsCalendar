@@ -151,6 +151,12 @@ public class MeetingService {
                 .collect(Collectors.toList());
     }
 
+    public List<Meeting> filterMeetingsByAttendees(int minAttendees) {
+        return meetings.stream()
+                .filter(meeting -> meeting.getAttendees().size() > minAttendees)
+                .collect(Collectors.toList());
+    }
+
 
 
 
