@@ -57,6 +57,17 @@ private final MeetingService meetingService;
         return new ResponseEntity<>("Person added to the meeting successfully.", HttpStatus.OK);
     }
 
+    // localhost:8080/meetings/{meetingName}/remove-person
+    /*     JSON example:
+    {
+  "person": "Tomas"
+    } */
+    @PostMapping("/{meetingName}/remove-person")
+    public ResponseEntity<String> removePersonFromMeeting(@PathVariable String meetingName, @RequestBody PersonRequest personRequest) {
+        String person = personRequest.getPerson();
+        meetingService.removePersonFromMeeting(meetingName, person);
+        return new ResponseEntity<>("Person removed from the meeting successfully.", HttpStatus.OK);
+    }
 
 
 

@@ -93,6 +93,28 @@ public class MeetingService {
         }
     }
 
+    public Meeting getMeetingByName(String name) {
+        return meetings.stream()
+                .filter(meeting -> meeting.getName().equalsIgnoreCase(name))
+                .findFirst()
+                .orElse(null);
+    }
+public void removePersonFromMeeting(String meetingName, String person) {
+    Meeting meeting = getMeetingByName(meetingName);
+    if (meeting != null) {
+        if (meeting.getResponsiblePerson().equalsIgnoreCase(person)) {
+            System.out.println("The responsible person cannot be removed from the meeting.");
+            return;
+        }
+
+        meeting.getAttendees().remove(person);
+        saveMeetingsToFile();
+    } else {
+        System.out.println("Meeting not found.");
+    }
+}
+
+
 
 
 
